@@ -55,6 +55,9 @@ Three typical **examples of fixtures** (asked in 2019-20 Q7(a)): creating a fres
 A **test suite** bundles several test classes and runs them together; in JUnit 4 this uses `@RunWith(Suite.class)` and `@Suite.SuiteClasses({A.class, B.class})`. A **test runner** is the component that executes the test cases and reports the results.
 
 ```java
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ DateTest.class, GradeCalculatorTest.class })
 public class AllTests { }   // running this runs both test classes

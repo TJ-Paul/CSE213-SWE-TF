@@ -284,8 +284,8 @@ interface Switch     { boolean isOn(); void press(); }
 interface Switchable { void turnOn(); void turnOff(); }
 
 class ElectricPowerSwitch implements Switch {
-    public Switchable client;            // abstraction, not LightBulb
-    public boolean on;
+    private final Switchable client;     // abstraction, not LightBulb
+    private boolean on;
     public ElectricPowerSwitch(Switchable client) { this.client = client; on = false; }
     public boolean isOn() { return on; }
     public void press() {

@@ -1,0 +1,132 @@
+[
+ {
+  "path": "00 Start Here",
+  "title": "00 Start Here",
+  "folder": ""
+ },
+ {
+  "path": "00 IJ Ma'am's Exam Rules",
+  "title": "00 IJ Ma'am's Exam Rules",
+  "folder": ""
+ },
+ {
+  "path": "00 Pattern Picker",
+  "title": "00 Pattern Picker",
+  "folder": ""
+ },
+ {
+  "path": "00 Question Analysis",
+  "title": "00 Question Analysis",
+  "folder": ""
+ },
+ {
+  "path": "01 IJ/IJ-1 Structural Design Patterns",
+  "title": "IJ-1 Structural Design Patterns",
+  "folder": "01 IJ"
+ },
+ {
+  "path": "01 IJ/IJ-2 Behavioral Design Patterns",
+  "title": "IJ-2 Behavioral Design Patterns",
+  "folder": "01 IJ"
+ },
+ {
+  "path": "01 IJ/IJ-3 Process Models and Agile",
+  "title": "IJ-3 Process Models and Agile",
+  "folder": "01 IJ"
+ },
+ {
+  "path": "01 IJ/IJ-4 Unit Testing and JUnit",
+  "title": "IJ-4 Unit Testing and JUnit",
+  "folder": "01 IJ"
+ },
+ {
+  "path": "01 IJ/IJ-5 Code Reviews",
+  "title": "IJ-5 Code Reviews",
+  "folder": "01 IJ"
+ },
+ {
+  "path": "01 IJ/IJ-6 Refactoring and Code Smells",
+  "title": "IJ-6 Refactoring and Code Smells",
+  "folder": "01 IJ"
+ },
+ {
+  "path": "01 IJ/IJ-7 Software Ethics",
+  "title": "IJ-7 Software Ethics",
+  "folder": "01 IJ"
+ },
+ {
+  "path": "01 IJ/IJ-8 Requirement Analysis",
+  "title": "IJ-8 Requirement Analysis",
+  "folder": "01 IJ"
+ },
+ {
+  "path": "02 AI/AI-1 Design Principles (SOLID)",
+  "title": "AI-1 Design Principles (SOLID)",
+  "folder": "02 AI"
+ },
+ {
+  "path": "02 AI/AI-2 Creational Design Patterns",
+  "title": "AI-2 Creational Design Patterns",
+  "folder": "02 AI"
+ },
+ {
+  "path": "02 AI/AI-3 Class Diagram",
+  "title": "AI-3 Class Diagram",
+  "folder": "02 AI"
+ },
+ {
+  "path": "02 AI/AI-4 State Diagram",
+  "title": "AI-4 State Diagram",
+  "folder": "02 AI"
+ },
+ {
+  "path": "02 AI/AI-5 Sequence and Collaboration Diagram",
+  "title": "AI-5 Sequence and Collaboration Diagram",
+  "folder": "02 AI"
+ },
+ {
+  "path": "02 AI/AI-6 Use Case Diagram",
+  "title": "AI-6 Use Case Diagram",
+  "folder": "02 AI"
+ },
+ {
+  "path": "02 AI/AI-7 BPMN",
+  "title": "AI-7 BPMN",
+  "folder": "02 AI"
+ },
+ {
+  "path": "02 AI/AI-8 Software Testing Fundamentals",
+  "title": "AI-8 Software Testing Fundamentals",
+  "folder": "02 AI"
+ },
+ {
+  "path": "02 AI/AI-9 Code Coverage and White-box Testing",
+  "title": "AI-9 Code Coverage and White-box Testing",
+  "folder": "02 AI"
+ },
+ {
+  "path": "02 AI/AI-10 Equivalence Partitioning and BVA",
+  "title": "AI-10 Equivalence Partitioning and BVA",
+  "folder": "02 AI"
+ },
+ {
+  "path": "03 TF Solves/TF 2022-23 (CSE307 May 2024)",
+  "title": "TF 2022-23 (CSE307 May 2024)",
+  "folder": "03 TF Solves"
+ },
+ {
+  "path": "03 TF Solves/TF 2023-24 (Feb 2025 paper)",
+  "title": "TF 2023-24 (Feb 2025 paper)",
+  "folder": "03 TF Solves"
+ },
+ {
+  "path": "03 TF Solves/TF 2023-24 (May 2026 paper)",
+  "title": "TF 2023-24 (May 2026 paper)",
+  "folder": "03 TF Solves"
+ },
+ {
+  "path": "99 Last Night Memorize Sheet",
+  "title": "99 Last Night Memorize Sheet",
+  "folder": ""
+ }
+]

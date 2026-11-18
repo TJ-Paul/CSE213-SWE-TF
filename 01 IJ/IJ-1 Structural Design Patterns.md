@@ -102,12 +102,15 @@ class Whip extends CondimentDecorator {
     public double cost() { return beverage.cost() + 0.10; }
 }
 
-// Client
-Beverage b = new DarkRoast();
-b = new Mocha(b);      // double mocha is now easy:
-b = new Mocha(b);
-b = new Whip(b);
-System.out.println(b.getDescription() + " $" + b.cost());  // 0.99+0.20+0.20+0.10
+public class StarbuzzDemo {                     // client
+    public static void main(String[] args) {
+        Beverage b = new DarkRoast();
+        b = new Mocha(b);      // double mocha is now easy:
+        b = new Mocha(b);
+        b = new Whip(b);
+        System.out.println(b.getDescription() + " $" + b.cost());  // 0.99+0.20+0.20+0.10
+    }
+}
 ```
 
 ### Real-world example: java.io
@@ -262,9 +265,12 @@ class TurkeyAdapter implements Duck {          // implements the TARGET
     public void fly() { for (int i = 0; i < 5; i++) turkey.fly(); }
 }
 
-// Client code is unchanged:
-Duck d = new TurkeyAdapter(new WildTurkey());
-d.quack();
+public class DuckDemo {                          // client code is unchanged
+    public static void main(String[] args) {
+        Duck d = new TurkeyAdapter(new WildTurkey());
+        d.quack();
+    }
+}
 ```
 
 ### Object adapter vs class adapter
@@ -353,8 +359,12 @@ class OTPNotification extends Notification {
     void notifyUser() { sender.send("Your OTP is 4821"); }
 }
 
-// 2 notifications x 2 channels = 4 behaviours from only 4 small classes
-new AlertNotification(new SMSSender()).notifyUser();
+public class BridgeDemo {
+    public static void main(String[] args) {
+        // 2 notifications x 2 channels = 4 behaviours from only 4 small classes
+        new AlertNotification(new SMSSender()).notifyUser();
+    }
+}
 ```
 
 ### How to recognize Bridge in a TF scenario
@@ -550,11 +560,11 @@ Why not plain inheritance? Writing `PacketWithAppAndTransportHeader` and so on w
 
 ---
 
-> [!example] ✍️ Worked TF question — 2020-21 Q1(a) [28] + Q1(b) [7] — burger shop meals (Veggi/Beef/Chicken pizza, extra cheese, drinks, appetizers, combo meal)
+> [!example] ✍️ Worked TF question — 2020-21 Q1(a) [28] + Q1(b) [7] — burger shop meals (Veggi/Panir/Chicken pizza, extra cheese, drinks, appetizers, combo meal)
 
-**Choice of three patterns.** The question asks us to construct the order classes using three different patterns and compute prices. A sensible set is: ==Factory Method== to create the base pizza (Veggi, Beef, Chicken) and the appetizers/drinks from a type name; ==Decorator== to add extra cheese (any number of times) to a pizza; and ==Builder== to assemble a combo meal step by step from an appetizer, a (possibly decorated) pizza and one or more drinks, then return the final `Meal`. (Composite is also acceptable for the meal, since a meal is a group of items whose price is the sum of its children.)
+**Choice of three patterns.** The question asks us to construct the order classes using three different patterns and compute prices. A sensible set is: ==Factory Method== to create the base pizza (Veggi, Panir, Chicken) and the appetizers/drinks from a type name; ==Decorator== to add extra cheese (any number of times) to a pizza; and ==Builder== to assemble a combo meal step by step from an appetizer, a (possibly decorated) pizza and one or more drinks, then return the final `Meal`. (Composite is also acceptable for the meal, since a meal is a group of items whose price is the sum of its children.)
 
-**Assumed prices** (the question lets us assume): Veggi pizza 300, Chicken pizza 350, Beef pizza 400, Extra cheese +50, French Fry 120, Onion Rings 100, Water 20, Coke 40, Coffee 80.
+**Assumed prices** (the question lets us assume): Veggi pizza 300, Chicken pizza 350, Panir pizza 400, Extra cheese +50, French Fry 120, Onion Rings 100, Water 20, Coke 40, Coffee 80.
 
 ```mermaid
 classDiagram
@@ -567,7 +577,7 @@ classDiagram
         <<abstract>>
     }
     class VeggiPizza
-    class BeefPizza
+    class PanirPizza
     class ChickenPizza
     class CheeseDecorator {
         -pizza : Pizza
@@ -596,7 +606,7 @@ classDiagram
     Item <|.. Appetizer
     Item <|.. Drink
     Pizza <|-- VeggiPizza
-    Pizza <|-- BeefPizza
+    Pizza <|-- PanirPizza
     Pizza <|-- ChickenPizza
     Pizza <|-- CheeseDecorator
     CheeseDecorator o-- Pizza
@@ -611,7 +621,7 @@ interface Item { String getName(); double getPrice(); }
 abstract class Pizza implements Item { }
 class VeggiPizza   extends Pizza { public String getName(){return "Veggi Pizza";}   public double getPrice(){return 300;} }
 class ChickenPizza extends Pizza { public String getName(){return "Chicken Pizza";} public double getPrice(){return 350;} }
-class BeefPizza    extends Pizza { public String getName(){return "Beef Pizza";}    public double getPrice(){return 400;} }
+class PanirPizza    extends Pizza { public String getName(){return "Panir Pizza";}    public double getPrice(){return 400;} }
 
 class CheeseDecorator extends Pizza {                 // Decorator: extra cheese
     private Pizza pizza;
@@ -636,7 +646,7 @@ class ItemFactory {                                   // Factory: creation from 
         switch (t) {
             case "Veggi":   return new VeggiPizza();
             case "Chicken": return new ChickenPizza();
-            case "Beef":    return new BeefPizza();
+            case "Panir":    return new PanirPizza();
             default: throw new IllegalArgumentException(t);
         }
     }
@@ -669,7 +679,19 @@ class MealBuilder {                                   // Builder: assemble step 
 
 **The four orders and their prices.**
 
-Order (1), Beef pizza with French fry and cheese: `new MealBuilder().addPizza(new CheeseDecorator(ItemFactory.createPizza("Beef"))).addAppetizer(ItemFactory.createAppetizer("FrenchFry")).build()` gives 400 + 50 + 120 = ==570==.
+Order (1), Panir pizza with French fry and cheese: 
+```
+Pizza panirPizza = ItemFactory.createPizza("Panir");
+Pizza cheesyPanirPizza = new CheeseDecorator(panirPizza);
+
+Appetizer fries = ItemFactory.createAppetizer("FrenchFry");
+
+Meal meal = new MealBuilder()
+    .addPizza(cheesyPanirPizza)
+    .addAppetizer(fries)
+    .build();
+```
+gives 400 + 50 + 120 = ==570==.
 
 Order (2), Chicken pizza with onion rings and a bottle of water: 350 + 100 + 20 = ==470==.
 
@@ -677,7 +699,7 @@ Order (3), combo meal with Veggi pizza, French fry and two bottles of Coke: `add
 
 Order (4), combo meal with Veggi pizza, onion rings and coffee: 300 + 100 + 80 = ==480==.
 
-**Q1(b) — relative advantages and disadvantages.** Decorator lets us add any number of extra-cheese toppings at runtime without making a subclass for every pizza-plus-topping combination, and new toppings are new classes only; its disadvantage is that it creates many small wrapper objects, and a decorated object's identity is not the same as the plain object, which makes debugging and type-checking harder. Builder separates the step-by-step construction of a meal from its final representation, gives fine control over the order of steps and makes the client code readable (method chaining); its disadvantage is the extra builder class and that it is overkill for very simple objects. Factory Method hides the `new` of concrete pizza and drink classes from the client so new items can be added in one place, which reduces coupling; its disadvantage is that the factory's switch must be edited (or a new subclass created) whenever a new product is introduced. A single inheritance-only design would be simpler to read but would explode into classes like `BeefPizzaWithCheeseAndFries`, so the combination of patterns is the better design.
+**Q1(b) — relative advantages and disadvantages.** Decorator lets us add any number of extra-cheese toppings at runtime without making a subclass for every pizza-plus-topping combination, and new toppings are new classes only; its disadvantage is that it creates many small wrapper objects, and a decorated object's identity is not the same as the plain object, which makes debugging and type-checking harder. Builder separates the step-by-step construction of a meal from its final representation, gives fine control over the order of steps and makes the client code readable (method chaining); its disadvantage is the extra builder class and that it is overkill for very simple objects. Factory Method hides the `new` of concrete pizza and drink classes from the client so new items can be added in one place, which reduces coupling; its disadvantage is that the factory's switch must be edited (or a new subclass created) whenever a new product is introduced. A single inheritance-only design would be simpler to read but would explode into classes like `PanirPizzaWithCheeseAndFries`, so the combination of patterns is the better design.
 
 📑 **See:** Decorator *1 - StructuralDesignPattern.pdf* p.47–50; Builder *[1] AI sir / Lec 3 - Creational Design Patterns.pdf* p.43–49 (the "kid's meal" builder picture on p.45); see also [[AI-2 Creational Design Patterns]].
 

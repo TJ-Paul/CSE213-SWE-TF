@@ -40,6 +40,10 @@ The notes use a few colored boxes so the important things jump out at you. A **�
 
 ### Part 3 — Exam tools
 
+[[00 Question Analysis]] breaks down all seven papers from the last five years set by set: what the compulsory set usually contains, which set in each section is always a pattern set, which one is always a skipped topic you can drop, and how often every topic appears. Read it before you start the TF solves so you know the shape of the paper.
+
+[[00 IJ Ma'am's Exam Rules]] turns IJ ma'am's own marking advice into a routine: justify every pattern (a wrong pattern with a good justification still gets partial marks), code before diagram when time is short, comments for repetitive parts, a Java-principles checklist, and how to put a method's definition on a diagram. Read it before the TF solves and again on exam morning.
+
 [[00 Pattern Picker]] teaches you to read a long scenario and recognise the design pattern within a minute. It has a self-test drill made from every pattern scenario in the last five papers. Do it after finishing both parts.
 
 [[99 Last Night Memorize Sheet]] collects every definition, formula and notation you must reproduce exactly. Read it the night before and on the morning of the exam.
@@ -73,4 +77,4 @@ The papers have two sections of 105 marks each. In the newer CSE 213 format, the
 
 ## 🧭 Exam-hall strategy
 
-Spend the first five minutes reading the whole section and ticking the questions whose patterns or techniques you recognise immediately. For a design-pattern question, always write it in four blocks in this order: **(1)** the pattern name with a two- or three-sentence justification that quotes the keywords from the scenario, **(2)** the class diagram, **(3)** the code, **(4)** a few lines of client/main code that show it working. Examiners give marks for every block separately, so never leave out the diagram even when you are short of time. For testing questions, always state your partitions or conditions first and then list the test cases with input and expected output. A test case without an expected output earns almost nothing.
+Spend the first five minutes reading the whole section and ticking the questions whose patterns or techniques you recognise immediately. For a design-pattern question, always write it in four blocks in this order: **(1)** the pattern name with a two- or three-sentence justification that quotes the keywords from the scenario, **(2)** the class diagram, **(3)** the code, **(4)** a few lines of client/main code that show it working. Examiners give marks for every block separately, so write all four when time allows. ==If you are short of time, IJ ma'am said the code gets priority over the diagram==: write the justification and the code first, then add a rough diagram only if time is left. Her full marking rules are in [[00 IJ Ma'am's Exam Rules]]. For testing questions, always state your partitions or conditions first and then list the test cases with input and expected output. A test case without an expected output earns almost nothing.

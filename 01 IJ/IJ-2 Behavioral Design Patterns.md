@@ -311,6 +311,7 @@ classDiagram
         +registerFlight(f: Flight)
         +requestLanding(f: Flight) boolean
         +sendMessage(msg: String, from: Flight)
+        +landed(f: Flight)
     }
     class ControlTower {
         -flights : Flight[]
@@ -318,11 +319,13 @@ classDiagram
         +registerFlight(f: Flight)
         +requestLanding(f: Flight) boolean
         +sendMessage(msg: String, from: Flight)
+        +landed(f: Flight)
     }
     class Flight {
         -id : String
         -mediator : ATCMediator
         +land()
+        +landed()
         +receive(msg: String)
     }
     ATCMediator <|.. ControlTower
@@ -335,18 +338,19 @@ interface ATCMediator {
     void registerFlight(Flight f);
     boolean requestLanding(Flight f);
     void sendMessage(String msg, Flight from);
+    void landed(Flight f);
 }
 
 class ControlTower implements ATCMediator {
     private List<Flight> flights = new ArrayList<>();
     private boolean runwayFree = true;
-    public void registerFlight(Flight f) { flights.add(f); }
-    public boolean requestLanding(Flight f) {
+    @Override public void registerFlight(Flight f) { flights.add(f); }
+    @Override public boolean requestLanding(Flight f) {
         if (runwayFree) { runwayFree = false; sendMessage(f.getId() + " is landing", f); return true; }
         return false;                                   // must wait
     }
-    public void landed(Flight f) { runwayFree = true; }
-    public void sendMessage(String msg, Flight from) {
+    @Override public void landed(Flight f) { runwayFree = true; sendMessage(f.getId() + " has landed, runway free", f); }
+    @Override public void sendMessage(String msg, Flight from) {
         for (Flight f : flights) if (f != from) f.receive(msg);   // tower relays
     }
 }
@@ -359,6 +363,7 @@ class Flight {
         if (mediator.requestLanding(this)) System.out.println(id + " landing");
         else System.out.println(id + " waiting");
     }
+    public void landed() { mediator.landed(this); }       // tells the tower the runway is free
     public void receive(String msg) { System.out.println(id + " received: " + msg); }
 }
 ```
@@ -438,23 +443,27 @@ classDiagram
 interface Command { void execute(); void undo(); }
 
 class Editor {                                       // RECEIVER: real work
-    String text = "", clipboard = "";
-    String getSelection() { return text; }
+    private String text = "", clipboard = "";
+    String getSelection()           { return text; }
     void replaceSelection(String s) { text = s; }
+    String getText()                { return text; }
+    void setText(String s)          { text = s; }
+    String getClipboard()           { return clipboard; }
+    void setClipboard(String s)     { clipboard = s; }
 }
 
 class CopyCommand implements Command {
     private Editor editor;
     CopyCommand(Editor e) { editor = e; }
-    public void execute() { editor.clipboard = editor.getSelection(); }
-    public void undo() { }                           // copy changes nothing visible
+    @Override public void execute() { editor.setClipboard(editor.getSelection()); }
+    @Override public void undo() { }                           // copy changes nothing visible
 }
 
 class PasteCommand implements Command {
     private Editor editor; private String backup;
     PasteCommand(Editor e) { editor = e; }
-    public void execute() { backup = editor.text; editor.replaceSelection(editor.clipboard); }
-    public void undo() { editor.text = backup; }     // restore previous state
+    @Override public void execute() { backup = editor.getText(); editor.replaceSelection(editor.getClipboard()); }
+    @Override public void undo() { editor.setText(backup); }     // restore previous state
 }
 
 class Button {                                       // INVOKER: knows only Command
@@ -546,43 +555,48 @@ stateDiagram-v2
 interface State { void insertQuarter(); void ejectQuarter(); void turnCrank(); void dispense(); }
 
 class GumballMachine {
-    State noQuarter = new NoQuarterState(this), hasQuarter = new HasQuarterState(this),
-          sold = new SoldState(this), soldOut = new SoldOutState(this);
-    State currentState; int count;
+    private final State noQuarter = new NoQuarterState(this), hasQuarter = new HasQuarterState(this),
+                        sold = new SoldState(this), soldOut = new SoldOutState(this);
+    private State currentState; private int count;
     GumballMachine(int n) { count = n; currentState = (n > 0) ? noQuarter : soldOut; }
     void insertQuarter() { currentState.insertQuarter(); }        // delegate
     void ejectQuarter()  { currentState.ejectQuarter(); }
     void turnCrank()     { currentState.turnCrank(); currentState.dispense(); }
     void setState(State s) { currentState = s; }
+    State getNoQuarterState()  { return noQuarter; }
+    State getHasQuarterState() { return hasQuarter; }
+    State getSoldState()       { return sold; }
+    State getSoldOutState()    { return soldOut; }
+    int getCount()             { return count; }
     void releaseBall() { System.out.println("A gumball rolls out"); if (count > 0) count--; }
 }
 
 class NoQuarterState implements State {
-    GumballMachine m; NoQuarterState(GumballMachine m) { this.m = m; }
-    public void insertQuarter() { System.out.println("Quarter inserted"); m.setState(m.hasQuarter); }
+    private final GumballMachine m; NoQuarterState(GumballMachine m) { this.m = m; }
+    public void insertQuarter() { System.out.println("Quarter inserted"); m.setState(m.getHasQuarterState()); }
     public void ejectQuarter()  { System.out.println("No quarter to eject"); }
     public void turnCrank()     { System.out.println("Insert a quarter first"); }
     public void dispense()      { System.out.println("Pay first"); }
 }
 class HasQuarterState implements State {
-    GumballMachine m; HasQuarterState(GumballMachine m) { this.m = m; }
+    private final GumballMachine m; HasQuarterState(GumballMachine m) { this.m = m; }
     public void insertQuarter() { System.out.println("Already have a quarter"); }
-    public void ejectQuarter()  { System.out.println("Quarter returned"); m.setState(m.noQuarter); }
-    public void turnCrank()     { System.out.println("You turned..."); m.setState(m.sold); }
+    public void ejectQuarter()  { System.out.println("Quarter returned"); m.setState(m.getNoQuarterState()); }
+    public void turnCrank()     { System.out.println("You turned..."); m.setState(m.getSoldState()); }
     public void dispense()      { System.out.println("No gumball dispensed"); }
 }
 class SoldState implements State {
-    GumballMachine m; SoldState(GumballMachine m) { this.m = m; }
+    private final GumballMachine m; SoldState(GumballMachine m) { this.m = m; }
     public void insertQuarter() { System.out.println("Please wait"); }
     public void ejectQuarter()  { System.out.println("Already turned the crank"); }
     public void turnCrank()     { System.out.println("Turning twice gives nothing"); }
     public void dispense() {
         m.releaseBall();
-        m.setState(m.count > 0 ? m.noQuarter : m.soldOut);      // state decides the next state
+        m.setState(m.getCount() > 0 ? m.getNoQuarterState() : m.getSoldOutState());      // state decides the next state
     }
 }
 class SoldOutState implements State {
-    GumballMachine m; SoldOutState(GumballMachine m) { this.m = m; }
+    private final GumballMachine m; SoldOutState(GumballMachine m) { this.m = m; }
     public void insertQuarter() { System.out.println("Sold out"); }
     public void ejectQuarter()  { System.out.println("No quarter"); }
     public void turnCrank()     { System.out.println("Sold out"); }
@@ -903,8 +917,14 @@ classDiagram
 ```
 
 ```java
-class Student { String id; double marks; String grade;
-    Student(String id, double m) { this.id = id; marks = m; } }
+class Student {
+    private final String id; private final double marks; private String grade;
+    Student(String id, double m) { this.id = id; marks = m; }
+    String getId()          { return id; }
+    double getMarks()       { return marks; }
+    String getGrade()       { return grade; }
+    void setGrade(String g) { grade = g; }
+}
 
 interface GradingStrategy {
     String grade(double marks);
@@ -928,12 +948,12 @@ class MeritListGenerator {
     List<Student> meritList(List<Student> students) {
         int best = -1;
         for (Student s : students) {
-            s.grade = strategy.grade(s.marks);
-            best = Math.max(best, strategy.rank(s.grade));
+            s.setGrade(strategy.grade(s.getMarks()));
+            best = Math.max(best, strategy.rank(s.getGrade()));
         }
         List<Student> merit = new ArrayList<>();
-        for (Student s : students) if (strategy.rank(s.grade) == best) merit.add(s);
-        merit.sort((a, b) -> Double.compare(b.marks, a.marks));   // order by marks
+        for (Student s : students) if (strategy.rank(s.getGrade()) == best) merit.add(s);
+        merit.sort((a, b) -> Double.compare(b.getMarks(), a.getMarks()));   // order by marks
         return merit;
     }
 }
@@ -985,7 +1005,7 @@ class TemperatureRecord {
         if (lastYear.size() > 365) lastYear.removeFirst();   // keep one year only
         notifyObservers();                                   // the trigger
     }
-    Collection<Double> getLastYear() { return lastYear; }
+    Collection<Double> getLastYear() { return Collections.unmodifiableCollection(lastYear); }  // read-only view
     private void notifyObservers() { for (TempObserver o : observers) o.update(this); }  // PULL model
 }
 

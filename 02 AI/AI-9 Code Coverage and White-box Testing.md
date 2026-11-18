@@ -37,7 +37,7 @@ String getTriangle(int a, int b, int c) {
 }
 
 void success() {
-    printf("Got it!");
+    System.out.println("Got it!");
 }
 ```
 
@@ -61,7 +61,7 @@ Condition coverage did not guarantee branch coverage here: the second decision n
 
 ### Statement coverage (p.6)
 
-With all five tests `(2,2,3)`, `(2,2,2)`, `(1,2,2)`, `(2,1,2)`, `(2,3,4)` every statement — `success()`, all three `return`s and the `printf` — has executed, so statement coverage is 100%. The slides build the suite cumulatively, but in an exam you should also be able to give the ==minimal== set. For statement coverage only three tests are needed: `(2,2,2)` for Equilateral and `success()`, `(2,2,3)` for Isosceles and `(2,3,4)` for Scalene. The same three tests also achieve branch coverage here.
+With all five tests `(2,2,3)`, `(2,2,2)`, `(1,2,2)`, `(2,1,2)`, `(2,3,4)` every statement — `success()`, all three `return`s and the print statement — has executed, so statement coverage is 100%. The slides build the suite cumulatively, but in an exam you should also be able to give the ==minimal== set. For statement coverage only three tests are needed: `(2,2,2)` for Equilateral and `success()`, `(2,2,3)` for Isosceles and `(2,3,4)` for Scalene. The same three tests also achieve branch coverage here.
 
 ### Summary of the example in one paragraph
 

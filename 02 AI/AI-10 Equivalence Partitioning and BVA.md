@@ -33,7 +33,7 @@ public void negativeBalance_throwsException() {
     try {
         calculateSavingsInterest(-1.0f);
         fail("Exception expected");          // reaching here means no exception: test fails
-    } catch (Exception ex) { /* expected */ }
+    } catch (IllegalArgumentException ex) { /* expected: catch the specific exception */ }
 }
 
 @Test

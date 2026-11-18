@@ -126,10 +126,10 @@ class Rectangle implements Shape { public void draw() { System.out.println("Insi
 
 class ShapeFactory {
     public Shape getShape(String type) {
-        if (type == null) return null;
+        if (type == null) throw new IllegalArgumentException("Shape type is null");
         if (type.equalsIgnoreCase("CIRCLE"))    return new Circle();
         if (type.equalsIgnoreCase("RECTANGLE")) return new Rectangle();
-        return null;
+        throw new IllegalArgumentException("Unknown shape: " + type);   // the slide returns null; throwing is safer
     }
 }
 // Client: Shape s = new ShapeFactory().getShape("CIRCLE"); s.draw();
@@ -423,7 +423,7 @@ Prototype is the fifth creational pattern; it is not in AI sir's covered list (p
 abstract class Shape implements Cloneable {
     String color;
     public Shape clone() {
-        try { return (Shape) super.clone(); } catch (CloneNotSupportedException e) { return null; }
+        try { return (Shape) super.clone(); } catch (CloneNotSupportedException e) { throw new AssertionError(e); }  // cannot happen: we implement Cloneable
     }
 }
 ```
@@ -690,6 +690,10 @@ See also the Bridge section in [[IJ-1 Structural Design Patterns]] and the scena
 >
 > class SchemeRegistry {                                     // list shown in the UI; schemes team edits only this data
 >     private static final Map<String, SchemeCreator> creators = new LinkedHashMap<>();
+>     static {                                               // the schemes on offer today
+>         register("Regular", new RegularSchemeCreator());
+>         register("Night",   new NightSchemeCreator());
+>     }
 >     static void register(String key, SchemeCreator c) { creators.put(key, c); }
 >     static Set<String> available() { return creators.keySet(); }
 >     static SchemeCreator get(String key) { return creators.get(key); }
