@@ -6,4 +6,14 @@ Study notes for the BUET CSE 213 term final, covering IJ ma'am's and AI sir's sl
 
 Start with **00 Start Here**, which gives the study order. Read the **TF Solves** folder last, as a final check.
 
-The notes are written in Obsidian. You can also open this folder as an Obsidian vault and read them there.
+## Updating the site
+
+After editing a note, just commit and push. The site updates in a minute or two.
+
+If you **add, rename or delete** a note, rebuild the note list before committing:
+
+```bash
+python3 build-site-index.py
+```
+
+Then commit the updated `notes.json` along with your notes.
