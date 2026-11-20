@@ -353,9 +353,30 @@
 
   // ---------- mobile sidebar ----------
   function closeSidebar() { $("#sidebar").classList.remove("open"); $("#scrim").hidden = true; }
-  $("#menu-btn").addEventListener("click", () => {
-    const open = !$("#sidebar").classList.contains("open");
-    $("#sidebar").classList.toggle("open", open); $("#scrim").hidden = !open;
+  const isPhone = () => matchMedia("(max-width: 820px)").matches;
+  function setPanel(cls, hide) {
+    document.body.classList.toggle(cls, hide);
+    try { localStorage.setItem(cls, hide ? "1" : ""); } catch (e) { /* ignore */ }
+  }
+  function toggleLeft() {
+    if (isPhone()) {
+      const open = !$("#sidebar").classList.contains("open");
+      $("#sidebar").classList.toggle("open", open); $("#scrim").hidden = !open;
+    } else {
+      setPanel("hide-left", !document.body.classList.contains("hide-left"));
+    }
+  }
+  function toggleRight() { setPanel("hide-right", !document.body.classList.contains("hide-right")); }
+  for (const cls of ["hide-left", "hide-right"]) {
+    try { if (localStorage.getItem(cls)) document.body.classList.add(cls); } catch (e) { /* ignore */ }
+  }
+  $("#menu-btn").addEventListener("click", toggleLeft);
+  $("#toc-btn").addEventListener("click", toggleRight);
+  // keyboard: [ toggles the notes panel, ] toggles "On this page"
+  document.addEventListener("keydown", (e) => {
+    if (e.metaKey || e.ctrlKey || e.altKey || (e.target.closest && e.target.closest("input, textarea"))) return;
+    if (e.key === "[") toggleLeft();
+    else if (e.key === "]") toggleRight();
   });
   $("#scrim").addEventListener("click", closeSidebar);
 
