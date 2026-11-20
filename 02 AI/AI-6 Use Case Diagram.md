@@ -4,6 +4,8 @@ This note covers AI sir's Lecture 15 on use cases: what a use case is, actors an
 
 **TF frequency:** 2023-24 (Feb-2025 paper) Q1(a) — draw a use case diagram for the Mentcare case study and show where the criminal can get access [7]. Use cases are also a "system representation technique" in [[IJ-8 Requirement Analysis]].
 
+**CSE 325 diagram questions:** The seniors' CSE 325 use case questions (shopping site, microwave, ATM, Playdom game, «extends» example) are solved in [[AI Sir Diagram Questions (CSE 325)#1. Use Case Diagram]].
+
 📑 **See:** *[1] AI sir/Lec 15 - Use case.pdf* → p.1–2 (UML, list of UML diagrams), p.3 (what is a use case), p.4 (actor, primary/supporting actor, stakeholder), p.5 (how to identify actors), p.6 (use case diagram), p.7 (actors), p.8 (use cases), p.9 (association), p.10 (system boundary), p.11 (hospital sample), p.12 (actor generalization), p.13 (extend), p.14 (include), p.15 (hospital diagram with relationships).
 
 ---

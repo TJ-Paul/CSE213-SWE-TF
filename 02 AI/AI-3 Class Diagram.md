@@ -4,6 +4,8 @@ This note covers AI sir's class diagram lectures (Lec 4, Lec 5, the `class diagr
 
 **TF frequency:** CSE307 2022-23 Q4(b) accounting software class diagram [12]; 2021-22 Q2(b) university class diagram [10]; 2020-21 Q5(a) media agency class diagram [16]; 2019-20 Q5(a) hospital wards and teams class diagram [20]; plus a UML class diagram inside every pattern question (2023-24 Feb Q2(a)(i) asks "draw the appropriate UML diagram" for 6 marks; Q5(b) asks for a class diagram for a class that is both Adapter and Facade).
 
+**CSE 325 diagram questions:** CSE 325 (AI sir's older course) asked class diagrams almost every year; all of them are solved in [[AI Sir Diagram Questions (CSE 325)#2. Class Diagram]].
+
 📑 **See:** *[1] AI sir/Lec 4 - class diagram.pdf* → p.3 (single class), p.4 (attributes), p.5 (operations), p.6–7 (generalization), p.8–9 (association, multiplicity), p.10 (aggregation, composition, dependency), p.11 (association class), p.12 (video rental example), p.13–14 (inheritance, multiple inheritance); *Lec 5 - class diagram-final.pdf* → same content plus extra worked diagrams p.15–24; *Lec 6 - ERD to class.pdf* → p.2–10 (university example).
 
 ---

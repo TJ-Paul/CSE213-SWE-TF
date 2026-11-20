@@ -4,6 +4,8 @@ This note covers AI sir's Lecture 7 on UML state diagrams (also called statechar
 
 **TF frequency:** No direct question in 2019-20 to 2023-24. Indirectly used for the State pattern in [[IJ-2 Behavioral Design Patterns]].
 
+**CSE 325 diagram questions:** In the seniors' CSE 325 papers a state diagram came **every year** (12–22 marks); all six are solved in [[AI Sir Diagram Questions (CSE 325)#5. State Diagram]].
+
 📑 **See:** *[1] AI sir/Lec 7 - state diagram.pdf* → p.1–2 (state, statechart), p.3 (GradeRate example), p.4 (event types), p.5–7 (events, actions, entry/exit/do), p.10–11 (Campaign statechart), p.12–17 (nested and concurrent states), p.18–20 (how to prepare), p.22–24 (Campaign initial → final), p.25–26 (garage scenario and its solution), p.27–29 (order processing examples).
 
 ---

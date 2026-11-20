@@ -55,6 +55,7 @@ These are the complete solutions of the newest papers. You should be able to sol
 1. [[TF 2023-24 (May 2026 paper)]] — the newest CSE 213 paper (dated 10/05/2026).
 2. [[TF 2023-24 (Feb 2025 paper)]] — the other CSE 213 paper with the 2023-2024 header (dated 09/02/2025).
 3. [[TF 2022-23 (CSE307 May 2024)]] — the last paper of the old CSE 307 course, which had the same syllabus.
+4. [[AI Sir Diagram Questions (CSE 325)]] — every use case, class, sequence, collaboration and state diagram question from the seniors' CSE 325 papers (2017-18 to 2023-24), with solutions. Do these after AI-3 to AI-6.
 
 ---
 

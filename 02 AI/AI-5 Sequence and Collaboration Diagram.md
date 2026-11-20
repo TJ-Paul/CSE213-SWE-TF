@@ -4,6 +4,8 @@ This note covers AI sir's Lecture 8 (sequence diagrams), Lecture 9 (sequence and
 
 **TF frequency:** No direct question in 2019-20 to 2023-24 (older papers asked it). Useful as a supporting figure in pattern answers (Observer notify flow, Mediator, Chain of Responsibility).
 
+**CSE 325 diagram questions:** In the seniors' CSE 325 papers a sequence or collaboration diagram came every year (12–21 marks); all are solved in [[AI Sir Diagram Questions (CSE 325)#3. Sequence Diagram]] and [[AI Sir Diagram Questions (CSE 325)#4. Collaboration (Communication) Diagram]].
+
 📑 **See:** *[1] AI sir/Lec 8 - sequence diagram.pdf* → p.1–2 (definition, key parts), p.3 (email example), p.4–7 (syntax), p.8 (frames), p.9 (StoreFront/Cart/Inventory example); *Lec 9 - seq-collaboration.pdf* → p.1 (registration use case description), p.2–3 (sequence diagrams), p.4–5 (annotated diagrams), p.6–7 (collaboration diagram), p.8 (model consistency); *Lec 10 - additional collaboration.pdf* → p.2–7 (campaign examples with boundary/control/entity objects).
 
 ---
