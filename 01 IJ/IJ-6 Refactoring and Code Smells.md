@@ -1,6 +1,6 @@
 # IJ-6 Refactoring and Code Smells
 
-This note teaches you to spot **bad smells** in code and remove them with named **refactoring techniques**, writing before/after Java code. This is one of the highest-scoring topics in recent papers: every recent paper gives a messy class (Student/Scholarship, DiscountCalculator/OrderProcessor, renderBanner/getSalary/getPayAmount) and asks you to ==identify the smells, name the refactoring, and write the refactored code==. You also get definition questions (code smell, refactoring, technical debt) and "define these smells with code" questions (Shotgun Surgery, Parallel Inheritance Hierarchies, Refused Bequest, Feature Envy, Data Clumps).
+This note teaches you to spot **bad smells** in code and remove them with named **refactoring techniques**, writing before/after Java code. This is one of the highest-scoring topics in recent papers: every recent paper gives a messy class (Student/ Scholarship, DiscountCalculator/ OrderProcessor, renderBanner/ getSalary/ getPayAmount) and asks you to ==identify the smells, name the refactoring, and write the refactored code==. You also get definition questions (code smell, refactoring, technical debt) and "define these smells with code" questions (Shotgun Surgery, Parallel Inheritance Hierarchies, Refused Bequest, Feature Envy, Data Clumps).
 
 **TF frequency:** May-2026 Q4(a) [20] + Q4(b), Feb-2025 Q8(c) [20], CSE307 2022-23 Q5(a)(b) [35], 2021-22 Q6(c), 2019-20 Q6(a). Extremely high — practise until you can do it fast.
 
@@ -94,7 +94,7 @@ A class with only fields, getters and setters and no behaviour. Not always bad; 
 ### 3.13 Comments (📑 p.29)
 Comments used to explain confusing code are "==used as a deodorant==" to hide a bad smell. Fix: **Extract Method** with a name that says what the comment said, **Rename Method**, **Extract Variable**.
 
-### 3.14 Smells asked in TF but not on the slides
+### Smells asked in TF but not on the slides
 
 **Refused Bequest.** ==A subclass inherits methods/data from its parent but does not want or use them==, often overriding them to do nothing or throw an exception. This suggests the inheritance is wrong (violates Liskov Substitution).
 ```java

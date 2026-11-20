@@ -358,25 +358,27 @@
     document.body.classList.toggle(cls, hide);
     try { localStorage.setItem(cls, hide ? "1" : ""); } catch (e) { /* ignore */ }
   }
-  function toggleLeft() {
+  // One button: on a phone it opens the notes menu; on a wider screen it
+  // collapses both side panels together (or brings both back).
+  function togglePanels() {
     if (isPhone()) {
       const open = !$("#sidebar").classList.contains("open");
       $("#sidebar").classList.toggle("open", open); $("#scrim").hidden = !open;
-    } else {
-      setPanel("hide-left", !document.body.classList.contains("hide-left"));
+      return;
     }
+    const b = document.body.classList;
+    const hide = !(b.contains("hide-left") && b.contains("hide-right"));
+    setPanel("hide-left", hide);
+    setPanel("hide-right", hide);
   }
-  function toggleRight() { setPanel("hide-right", !document.body.classList.contains("hide-right")); }
   for (const cls of ["hide-left", "hide-right"]) {
     try { if (localStorage.getItem(cls)) document.body.classList.add(cls); } catch (e) { /* ignore */ }
   }
-  $("#menu-btn").addEventListener("click", toggleLeft);
-  $("#toc-btn").addEventListener("click", toggleRight);
-  // keyboard: [ toggles the notes panel, ] toggles "On this page"
+  $("#menu-btn").addEventListener("click", togglePanels);
+  // keyboard: [ collapses / restores both side panels
   document.addEventListener("keydown", (e) => {
     if (e.metaKey || e.ctrlKey || e.altKey || (e.target.closest && e.target.closest("input, textarea"))) return;
-    if (e.key === "[") toggleLeft();
-    else if (e.key === "]") toggleRight();
+    if (e.key === "[") togglePanels();
   });
   $("#scrim").addEventListener("click", closeSidebar);
 
@@ -386,7 +388,9 @@
     try {
       notes = await (await fetch("notes.json", { cache: "no-cache" })).json();
     } catch (e) {
-      content.innerHTML = "<h1>Could not load notes.json</h1><p>Run <code>python3 build-site-index.py</code> in the repository and push again.</p>";
+      content.innerHTML = location.protocol === "file:"
+        ? "<h1>Open this through a local server</h1><p>Browsers don't let a page opened by double-click read other files. In this folder, run <code>python3 -m http.server</code> and open <a href=\"http://localhost:8000\">http://localhost:8000</a>.</p>"
+        : "<h1>Could not load notes.json</h1><p>Run <code>python3 build-site-index.py</code> in the repository and push again.</p>";
       return;
     }
     for (const n of notes) { byName.set(n.title.toLowerCase(), n); byName.set(n.path.toLowerCase(), n); }

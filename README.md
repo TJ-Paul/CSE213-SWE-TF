@@ -6,6 +6,19 @@ Study notes for the BUET CSE 213 term final, covering IJ ma'am's and AI sir's sl
 
 Start with **00 Start Here**, which gives the study order. Read the **TF Solves** folder last, as a final check.
 
+## Reading offline
+
+1. Download the repo: **Code → Download ZIP** on GitHub, then unzip it. You can also use `git clone`.
+2. Open a terminal in the unzipped folder and start a small local server:
+
+   ```bash
+   python3 -m http.server
+   ```
+
+3. Open **http://localhost:8000** in your browser. Press Ctrl+C in the terminal when you're done.
+
+Double-clicking `index.html` won't work, because browsers block a page opened from disk from reading the notes. The first visit also needs internet, to load fonts and the diagram library.
+
 ## Updating the site
 
 After editing a note, just commit and push. The site updates in a minute or two.

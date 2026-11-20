@@ -70,7 +70,7 @@ a:hover { text-decoration: underline; }
 .icon-btn { display: inline-grid; place-items: center; flex: none; }
 .icon-btn:hover { border-color: var(--accent); }
 .icon-btn .pane { opacity: .55; transition: opacity .15s; }
-body.hide-left #menu-btn .pane, body.hide-right #toc-btn .pane { opacity: 0; }
+body.hide-left.hide-right #menu-btn .pane { opacity: 0; }
 #menu-btn { order: -1; }
 
 /* collapsed panels (desktop) */
@@ -215,7 +215,7 @@ details.callout[open] > summary::after { transform: rotate(90deg); }
 @media (max-width: 1180px) {
   .layout, body.hide-right .layout { grid-template-columns: 260px minmax(0, 1fr); }
   body.hide-left .layout { grid-template-columns: minmax(0, 1fr); }
-  .toc, #toc-btn { display: none; }
+  .toc { display: none; }
 }
 @media (max-width: 820px) {
   body { font-size: 16px; }

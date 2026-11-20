@@ -157,19 +157,22 @@ The slides list seven typical negative testing scenarios, and together they are 
 > **Assumed rule (from Q5(a)):** cost of one ad in a Release Order = page rate per column-inch × size (column-inches) × (1 − discount of that newspaper). The page rate depends on the selected page; size must be positive and cannot exceed the page size (assume 1 to 96 column-inches); discount is a percentage from 0 to 100; the publishing date must be in the future; the total cost must not exceed the approved budget.
 >
 > **Partitions:** Page: P1 valid page of the newspaper (e.g. front page, rate 2000/col-inch), P2 another valid page with a different rate (inside page, 800), P3 page that does not exist in that newspaper (invalid). Size: S1 1–96 (valid), S2 ≤ 0 (invalid), S3 > 96 (invalid). Discount: D1 0% (no discount), D2 1–100% (valid discount), D3 < 0 or > 100 (invalid). Date: Dt1 future date (valid), Dt2 past date (invalid). Budget: B1 total ≤ budget (valid), B2 total > budget (invalid).
->
-> **Test cases (one value per partition, other inputs valid):**
-> | ID | Page | Size | Disc | Date | Classes | Expected |
-> |---|---|---|---|---|---|---|
-> | T1 | Front | 10 | 0% | future | P1,S1,D1,Dt1,B1 | 2000×10 = 20,000 |
-> | T2 | Inside | 10 | 20% | future | P2,S1,D2,Dt1,B1 | 800×10×0.8 = 6,400 |
-> | T3 | Page 99 | 10 | 0% | future | P3 | error: invalid page |
-> | T4 | Front | 0 | 0% | future | S2 | error: invalid size |
-> | T5 | Front | 120 | 0% | future | S3 | error: exceeds page size |
-> | T6 | Front | 10 | 150% | future | D3 | error: invalid discount |
-> | T7 | Front | 10 | 0% | yesterday | Dt2 | error: date in the past |
-> | T8 | Front | 90 | 0% | future (budget 50,000) | B2 | error: exceeds budget |
-> The valid tests (T1, T2) check that the cost is computed correctly with and without discount and for different page rates; each invalid test changes exactly one input so a failure points to one cause.
+
+**Test cases (one value per partition, other inputs valid):**
+
+| ID  | Page    | Size | Disc | Date                   | Classes         | Expected                 |
+| --- | ------- | ---- | ---- | ---------------------- | --------------- | ------------------------ |
+| T1  | Front   | 10   | 0%   | future                 | P1,S1,D1,Dt1,B1 | 2000×10 = 20,000         |
+| T2  | Inside  | 10   | 20%  | future                 | P2,S1,D2,Dt1,B1 | 800×10×0.8 = 6,400       |
+| T3  | Page 99 | 10   | 0%   | future                 | P3              | error: invalid page      |
+| T4  | Front   | 0    | 0%   | future                 | S2              | error: invalid size      |
+| T5  | Front   | 120  | 0%   | future                 | S3              | error: exceeds page size |
+| T6  | Front   | 10   | 150% | future                 | D3              | error: invalid discount  |
+| T7  | Front   | 10   | 0%   | yesterday              | Dt2             | error: date in the past  |
+| T8  | Front   | 90   | 0%   | future (budget 50,000) | B2              | error: exceeds budget    |
+
+The valid tests (T1, T2) check that the cost is computed correctly with and without discount and for different page rates; each invalid test changes exactly one input so a failure points to one cause.
+The valid tests (T1, T2) check that the cost is computed correctly with and without discount and for different page rates; each invalid test changes exactly one input so a failure points to one cause.
 
 Related worked question elsewhere: 2019-20 Q7(a) — unit test method for a grading policy using BVA — is solved in [[IJ-4 Unit Testing and JUnit]], because it is mainly a JUnit-writing question. The BVA values it uses come from section 2 of this note.
 
